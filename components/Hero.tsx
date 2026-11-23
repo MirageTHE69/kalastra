@@ -1,28 +1,38 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { HERO_SLIDES } from "@/lib/content";
+import { useEffect, useRef } from "react";
+import { HERO_VIDEO } from "@/lib/content";
 import { delay, useFrame } from "@/lib/motion";
 
-const INTERVAL = 5200;
-
 export default function Hero() {
-  const [slide, setSlide] = useState(0);
-  const timer = useRef<number | undefined>(undefined);
   const media = useRef<HTMLDivElement>(null);
   const text = useRef<HTMLDivElement>(null);
+  const video = useRef<HTMLVideoElement>(null);
+  const reel = useRef<HTMLSpanElement>(null);
 
-  const start = useCallback(() => {
-    window.clearInterval(timer.current);
-    timer.current = window.setInterval(() => setSlide((s) => (s + 1) % HERO_SLIDES.length), INTERVAL);
+  // React doesn't reliably render the `muted` attribute, and browsers only
+  // autoplay muted video, so force it on and kick off playback.
+  useEffect(() => {
+    const v = video.current;
+    if (!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    // The reel opens on ~2s of black; skip it on first play so the splash
+    // screen shows footage. Later loops play the full video.
+    const skipIntro = () => {
+      if (v.currentTime < HERO_VIDEO.startAt) v.currentTime = HERO_VIDEO.startAt;
+    };
+    if (v.readyState >= 1) skipIntro();
+    else v.addEventListener("loadedmetadata", skipIntro, { once: true });
+    v.play().catch(() => {});
+    return () => v.removeEventListener("loadedmetadata", skipIntro);
   }, []);
 
-  useEffect(() => {
-    start();
-    return () => window.clearInterval(timer.current);
-  }, [start]);
-
   useFrame(() => {
+    const v = video.current;
+    if (v && reel.current && v.duration) {
+      reel.current.style.transform = `scaleX(${v.currentTime / v.duration})`;
+    }
     const y = window.scrollY, vh = window.innerHeight;
     if (y >= vh * 1.3 || !media.current || !text.current) return;
     media.current.style.transform = `translate3d(0,${y * 0.4}px,0) scale(${1 + (y / vh) * 0.1})`;
@@ -33,13 +43,19 @@ export default function Hero() {
   return (
     <section id="top" className="hero" data-screen-label="01 Hero">
       <div ref={media} className="hero-media">
-        {HERO_SLIDES.map((s, i) => (
-          <div
-            key={s.label}
-            className={`hero-slide${slide === i ? " is-active" : ""}`}
-            style={{ backgroundImage: `url(${s.img})` }}
-          />
-        ))}
+        <video
+          ref={video}
+          className="hero-video"
+          src={HERO_VIDEO.src}
+          poster={HERO_VIDEO.poster}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden
+          tabIndex={-1}
+        />
       </div>
       <div className="hero-shade" />
       <div className="hero-vignette" />
@@ -47,13 +63,13 @@ export default function Hero() {
       <div ref={text} className="hero-text">
         <div style={{ overflow: "hidden" }}>
           <div data-rv="up" style={delay(2)} className="hero-eyebrow">
-            ARCHITECTURAL VISUALISATION STUDIO · EST. 2021
+            ARCHITECTURAL AND INTERIOR VISUALISATION STUDIO
           </div>
         </div>
         <h1 className="hero-title">
-          <span className="mask"><span data-rv="up" style={delay(1.9)}>Architecture,</span></span>
-          <span className="mask"><span data-rv="up" style={delay(2)}>rendered <em className="accent">before</em></span></span>
-          <span className="mask"><span data-rv="up" style={delay(2.1)}>it’s built.</span></span>
+          <span className="mask"><span data-rv="up" style={delay(1.9)}>Envision space</span></span>
+          <span className="mask"><span data-rv="up" style={delay(2)}><em className="accent">before</em> its</span></span>
+          <span className="mask"><span data-rv="up" style={delay(2.1)}>existence.</span></span>
         </h1>
 
         <div className="hero-bottom">
@@ -66,17 +82,11 @@ export default function Hero() {
               <a href="#quote" className="btn-ghost">Get a Quote</a>
             </div>
           </div>
-          <div data-rv="" style={delay(2.5)} className="ticks">
-            {HERO_SLIDES.map((s, i) => (
-              <button
-                key={s.label}
-                className={`tick${slide === i ? " is-active" : ""}`}
-                onClick={() => { setSlide(i); start(); }}
-              >
-                <span>0{i + 1} {s.label}</span>
-                <span className="tick-bar"><span className="tick-fill" /></span>
-              </button>
-            ))}
+          <div data-rv="" style={delay(2.5)} className="ticks" aria-hidden>
+            <div className="tick tick--reel is-active">
+              <span>SHOWREEL</span>
+              <span className="tick-bar"><span ref={reel} className="tick-fill tick-fill--reel" /></span>
+            </div>
           </div>
         </div>
       </div>

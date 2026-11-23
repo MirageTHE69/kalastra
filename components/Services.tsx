@@ -28,7 +28,14 @@ export default function Services() {
             <div className="acc-num">0{i + 1}</div>
             <div className="acc-body">
               <h3 className="acc-title">{s.title}</h3>
-              <p className="acc-desc">{s.desc}</p>
+              {/* collapses to zero height when inactive so the title never gets pushed out of a closed card */}
+              <div className="acc-desc-wrap">
+                <div className="acc-desc">
+                  {s.desc.map((para) => (
+                    <p key={para}>{para}</p>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         ))}

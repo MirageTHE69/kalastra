@@ -25,7 +25,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kalastra Studio — Architectural Visualisation",
+  title: "Kalastra Studio — Architectural & Interior Visualisation",
   description:
     "Photoreal exteriors, interiors and walkthroughs for architects, developers and interior studios. Pune, India · Remote worldwide.",
   icons: { icon: "/assets/logo-sage.png" },
@@ -37,7 +37,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable} ${mono.variable}`}>
+    <html lang="en" className={`is-loading ${fraunces.variable} ${inter.variable} ${mono.variable}`}>
       <body>{children}</body>
     </html>
   );

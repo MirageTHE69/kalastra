@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { EASE, clamp01, useFrame } from "@/lib/motion";
 
-/* ---------- Intro loader: logo wipe + counter, then curtains split ---------- */
+/* ---------- Intro loader: logo wipe + counter over the hero video, then curtains split ---------- */
 export function Loader() {
   const [show, setShow] = useState(true);
   const [count, setCount] = useState(0);
@@ -25,6 +25,7 @@ export function Loader() {
       if (p >= 1) window.clearInterval(counter);
     }, 50);
     const split = window.setTimeout(() => {
+      document.documentElement.classList.remove("is-loading");
       I.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: "forwards" });
       const opts = { duration: 1100, easing: EASE, fill: "forwards" as const, delay: 150 };
       T.animate([{ transform: "translateY(0)" }, { transform: "translateY(-100%)" }], opts);
@@ -32,6 +33,7 @@ export function Loader() {
     }, 1650);
     const done = window.setTimeout(() => setShow(false), 3000);
     return () => {
+      document.documentElement.classList.remove("is-loading");
       window.clearInterval(counter);
       window.clearTimeout(split);
       window.clearTimeout(done);

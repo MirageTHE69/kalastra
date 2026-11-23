@@ -8,35 +8,44 @@ export const NAV = [
   { label: "Studio", href: "#studio" },
 ];
 
-export const HERO_SLIDES = [
-  { label: "DAY", img: u("photo-1613490493576-7fde63acd811", 2200) },
-  { label: "GOLDEN HOUR", img: u("photo-1600596542815-ffad4c1539a9", 2200) },
-  { label: "NIGHT", img: u("photo-1512917774080-9991f1c4c750", 2200) },
-];
+/** Background video used on the splash screen and the hero (always muted). */
+export const HERO_VIDEO = {
+  src: "/media/hero.mp4",
+  poster: "/media/hero-poster.jpg",
+  /** seconds to skip on first play (the reel opens on black) */
+  startAt: 2.4,
+};
 
 export const STATEMENT =
-  "We turn drawings into places people can already picture: the light at six in the evening, the grain of the oak, the way a quiet street meets the front door.";
-export const STATEMENT_ACCENTS = new Set(["picture:", "light", "evening,"]);
+  "Experience every room in lifelike detail before a single brick is laid. We turn drawings into places where people can see their space with every detailed material, colour palette and design.";
+export const STATEMENT_ACCENTS = new Set(["lifelike", "brick", "material,"]);
 
+/** desc is a list of paragraphs */
 export const SERVICES = [
   {
     title: "Exterior Renders",
-    desc: "Façades, landscapes and aerials lit for the hour that sells the building. Day, dusk and night variants from one camera.",
+    desc: [
+      "We model every element of a building’s exterior, from cladding, glazing and landscaping to streetscapes and natural sunlight, so architects, developers and real estate marketers can present compelling visions to clients, stakeholders and buyers.",
+      "We also provide eye-level street views, aerial bird’s-eye angles and masterplan visualisations for residential and commercial projects.",
+    ],
     img: u("photo-1564013799919-ab600027ffc6"),
   },
   {
     title: "Interior Renders",
-    desc: "Material-accurate rooms for interior studios and developers, from single hero shots to full apartment sets.",
+    desc: [
+      "Interior renders capture true-to-life textures, lighting and spatial flow, helping architects and interior designers communicate their vision and designs clearly to clients.",
+      "Give clients the opportunity to connect emotionally with a space, test finishes and validate layouts.",
+    ],
     img: u("photo-1618221195710-dd6b41faaea6"),
   },
   {
     title: "3D Walkthroughs",
-    desc: "Cinematic animated tours with considered camera moves, sound design and colour grading.",
+    desc: ["Cinematic animated tours with considered camera moves, sound design and colour grading."],
     img: u("photo-1600566753086-00f18fb6b3ea"),
   },
   {
     title: "360° Panoramas",
-    desc: "Interactive spheres your clients can look around on any screen or VR headset.",
+    desc: ["Interactive spheres your clients can look around on any screen or VR headset."],
     img: u("photo-1600210492486-724fe5c67fb0"),
   },
 ];
