@@ -12,9 +12,17 @@ export function Loader() {
   const inner = useRef<HTMLDivElement>(null);
   const logo = useRef<HTMLImageElement>(null);
 
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const L = logo.current, T = top.current, B = bottom.current, I = inner.current;
     if (!L || !T || !B || !I) return;
+    // play the intro once per visit
+    if (sessionStorage.getItem("kal-intro")) {
+      document.documentElement.classList.add("no-intro");
+      setShow(false);
+      return;
+    }
     L.animate([{ clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)" }], {
       duration: 1400, easing: EASE, fill: "forwards",
     });
@@ -25,7 +33,9 @@ export function Loader() {
       if (p >= 1) window.clearInterval(counter);
     }, 50);
     const split = window.setTimeout(() => {
-      document.documentElement.classList.remove("is-loading");
+      // remembered at the split (not on mount) so React's dev double-mount still plays it
+      sessionStorage.setItem("kal-intro", "1");
+      setOpen(true);
       I.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: "forwards" });
       const opts = { duration: 1100, easing: EASE, fill: "forwards" as const, delay: 150 };
       T.animate([{ transform: "translateY(0)" }, { transform: "translateY(-100%)" }], opts);
@@ -33,7 +43,6 @@ export function Loader() {
     }, 1650);
     const done = window.setTimeout(() => setShow(false), 3000);
     return () => {
-      document.documentElement.classList.remove("is-loading");
       window.clearInterval(counter);
       window.clearTimeout(split);
       window.clearTimeout(done);
@@ -42,7 +51,7 @@ export function Loader() {
 
   if (!show) return null;
   return (
-    <div className="loader" aria-hidden>
+    <div className={`loader${open ? " is-open" : ""}`} aria-hidden>
       <div ref={top} className="loader-curtain loader-curtain--top" />
       <div ref={bottom} className="loader-curtain loader-curtain--bottom" />
       <div ref={inner} className="loader-inner">

@@ -65,10 +65,11 @@ export default function Contact() {
           </div>
           <div className="footer-col">
             <span className="footer-label">NAVIGATE</span>
-            <a href="#work">Work</a>
-            <a href="#services">Services</a>
-            <a href="#process">Process</a>
-            <a href="#studio">Studio</a>
+            <a href="/#work">Work</a>
+            <a href="/#services">Services</a>
+            <a href="/#process">Process</a>
+            <a href="/#studio">Studio</a>
+            <a href="/about">About</a>
           </div>
           <div className="footer-col">
             <span className="footer-label">CONTACT</span>

@@ -52,20 +52,41 @@ export function MotionProvider({ children }: { children: ReactNode }) {
     };
     raf = requestAnimationFrame(loop);
 
+    const scrollToEl = (el: HTMLElement | null, immediate = false) => {
+      if (lenis) lenis.scrollTo(el ?? 0, immediate ? { immediate: true, force: true } : { duration: 1.6 });
+      else window.scrollTo({ top: el ? el.offsetTop : 0, behavior: immediate ? "auto" : "smooth" });
+    };
+
+    // "#id" and "/#id" links scroll smoothly when the target is on this page;
+    // otherwise the browser navigates (e.g. from a project page back home).
     const onClick = (e: MouseEvent) => {
-      const a = (e.target as Element | null)?.closest?.('a[href^="#"]');
-      if (!a) return;
-      const id = a.getAttribute("href")!.slice(1);
+      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      const a = (e.target as Element | null)?.closest?.("a[href]");
+      const href = a?.getAttribute("href");
+      if (!href) return;
+      const onHome = window.location.pathname === "/";
+      let id: string;
+      if (href.startsWith("#")) id = href.slice(1);
+      else if (href.startsWith("/#")) id = href.slice(2);
+      else if (href === "/" && onHome) id = "";
+      else return;
       const el = id ? document.getElementById(id) : null;
-      if (!el && id) return;
+      if (id && !el) return;
       e.preventDefault();
-      if (lenis) lenis.scrollTo(el ?? 0, { duration: 1.6 });
-      else window.scrollTo({ top: el ? el.offsetTop : 0, behavior: "smooth" });
+      scrollToEl(el);
     };
     document.addEventListener("click", onClick);
 
+    // arriving with a hash (e.g. /#work from a project page)
+    const hashT = window.setTimeout(() => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      const el = id ? document.getElementById(id) : null;
+      if (el) scrollToEl(el, true);
+    }, 150);
+
     return () => {
       cancelAnimationFrame(raf);
+      window.clearTimeout(hashT);
       document.removeEventListener("click", onClick);
       lenis?.destroy();
     };

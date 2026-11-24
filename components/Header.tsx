@@ -22,12 +22,12 @@ export default function Header() {
     if (!isMobile) setOpen(false);
   }, [isMobile]);
 
-  const menuItems = [...NAV, { label: "Contact", href: "#quote" }];
+  const menuItems = [...NAV, { label: "Contact", href: "/#quote" }];
 
   return (
     <>
       <header className={`hdr${scrolled ? " is-scrolled" : ""}`}>
-        <a href="#top" className="hdr-logo" aria-label="Kalastra Studio — home">
+        <a href="/" className="hdr-logo" aria-label="Kalastra Studio — home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/assets/logo-sage.png" alt="Kalastra Studio" />
         </a>
@@ -42,7 +42,7 @@ export default function Header() {
               </a>
             ))}
           </div>
-          <a href="#quote" className="btn-pill btn-pill--sm">Get a Quote</a>
+          <a href="/#quote" className="btn-pill btn-pill--sm">Get a Quote</a>
         </nav>
 
         <button

@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useRef } from "react";
-import { PROJECTS } from "@/lib/content";
+import { PROJECTS, ikImg } from "@/lib/content";
 import { clamp01, delay, useFrame, useIsMobile } from "@/lib/motion";
 
 /** Pinned section whose track scrolls horizontally on desktop; stacks on mobile. */
@@ -48,7 +49,7 @@ export default function Work() {
       <div className="work-pin">
         <div ref={track} className="work-track">
           <div className="work-intro">
-            <div data-rv="" className="eyebrow sage">03 — SELECTED WORK · 2023–26</div>
+            <div data-rv="" className="eyebrow sage">03 — SELECTED WORK</div>
             <h2 className="work-h2">
               <span className="mask"><span data-rv="up">Places that</span></span>
               <span className="mask">
@@ -56,31 +57,32 @@ export default function Work() {
               </span>
             </h2>
             <p data-rv="" style={delay(0.2)} className="work-lede">
-              A selection of villas, towers, interiors and resorts, delivered for practices across India and the Gulf.
+              Recent apartment interiors and residential exteriors, rendered from our clients’ drawings. Open a
+              project to see every view.
             </p>
           </div>
 
           {PROJECTS.map((p) => (
-            <a
-              key={p.name}
-              href="#work"
+            <Link
+              key={p.slug}
+              href={`/work/${p.slug}`}
               data-cursor="view"
               className={`proj ${p.ar === "16/11" ? "proj--wide" : "proj--tall"}`}
               style={{ marginTop: p.mt }}
             >
               <div className="proj-media" style={{ aspectRatio: p.ar }}>
-                <div className="proj-img" style={{ backgroundImage: `url(${p.img})` }} />
+                <div className="proj-img" style={{ backgroundImage: `url("${ikImg(p.cover, 1400)}")` }} />
                 <div className="proj-tag">{p.tag}</div>
               </div>
               <div className="proj-meta">
                 <span className="proj-name">{p.name}</span>
-                <span className="proj-loc">{p.loc}</span>
+                <span className="proj-loc">{p.meta}</span>
               </div>
-            </a>
+            </Link>
           ))}
 
-          <a href="#work" className="proj-all">
-            All projects
+          <a href="#quote" className="proj-all">
+            Start a project
             <span className="diamond diamond--9" />
           </a>
         </div>
