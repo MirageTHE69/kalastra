@@ -304,6 +304,8 @@ html.no-intro .hero-text [data-rv] { --d: 0.15s !important; }
   letter-spacing: -0.02em;
   color: var(--bone);
 }
+.menu-foot a { color: var(--mute); }
+.menu-foot a:hover { color: var(--bone); }
 .menu-link span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; color: var(--sage); }
 .menu-foot {
   margin-top: 40px;

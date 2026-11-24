@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { EMAIL, NAV } from "@/lib/content";
+import { NAV, PHONE, WHATSAPP_URL } from "@/lib/content";
 import { useFrame, useIsMobile } from "@/lib/motion";
 
 export default function Header() {
@@ -64,7 +64,7 @@ export default function Header() {
           </a>
         ))}
         <div className="menu-foot">
-          <span>{EMAIL.toUpperCase()}</span>
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1}>WHATSAPP · {PHONE}</a>
           <span>INSTAGRAM · BEHANCE · LINKEDIN</span>
         </div>
       </div>

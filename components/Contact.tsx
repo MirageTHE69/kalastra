@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { EMAIL } from "@/lib/content";
+import { PHONE, WHATSAPP_URL } from "@/lib/content";
 import { delay, useFrame } from "@/lib/motion";
 
 export default function Contact() {
@@ -31,7 +31,8 @@ export default function Contact() {
         <div data-rv="" style={delay(0.2)} className="contact-row">
           <a
             ref={mag}
-            href={`mailto:${EMAIL}`}
+            href={WHATSAPP_URL}
+            target="_blank" rel="noopener noreferrer"
             className="magnet"
             onMouseMove={(e) => {
               const el = mag.current;
@@ -47,8 +48,8 @@ export default function Contact() {
             <span className="diamond diamond--7" />
           </a>
           <div className="contact-lines">
-            <a href={`mailto:${EMAIL}`} className="contact-email">{EMAIL}</a>
-            <span className="eyebrow eyebrow--sm muted">WHATSAPP · +91 00000 00000</span>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="contact-email">{PHONE}</a>
+            <span className="eyebrow eyebrow--sm muted">CHAT WITH US ON WHATSAPP</span>
           </div>
         </div>
       </div>
@@ -73,8 +74,8 @@ export default function Contact() {
           </div>
           <div className="footer-col">
             <span className="footer-label">CONTACT</span>
-            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-            <a href="#">WhatsApp</a>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">{PHONE}</a>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp</a>
           </div>
           <div className="footer-col">
             <span className="footer-label">FOLLOW</span>

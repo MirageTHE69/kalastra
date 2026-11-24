@@ -266,4 +266,6 @@ export const STEPS = [
   { title: "Final delivery", time: "DAY 5–7", desc: "Retouched 4K stills or graded video, delivered with print and social crops." },
 ];
 
-export const EMAIL = "hello@kalastra.studio";
+/** Contact — all enquiry buttons open a WhatsApp chat with this number. */
+export const PHONE = "+91 90810 79640";
+export const WHATSAPP_URL = "https://wa.me/919081079640";
