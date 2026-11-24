@@ -61,7 +61,7 @@ export default function Contact() {
             <span className="footer-about">
               Architectural visualisation
               <br />
-              Pune, India · Remote worldwide
+              Vadodara, Gujarat · Remote worldwide
             </span>
           </div>
           <div className="footer-col">

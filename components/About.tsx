@@ -31,7 +31,7 @@ export default function About() {
           </span>
         </h1>
         <p data-rv="" style={delay(0.3)} className="about-lede">
-          Kalastra Studio is an architectural and interior visualisation studio based in Pune, India. We turn
+          Kalastra Studio is an architectural and interior visualisation studio based in Vadodara, Gujarat. We turn
           drawings into photoreal images and walkthroughs for architects, interior designers and developers, so
           their clients can see, feel and approve a space long before it is built.
         </p>

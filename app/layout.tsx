@@ -27,7 +27,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Kalastra Studio — Architectural & Interior Visualisation",
   description:
-    "Photoreal exteriors, interiors and walkthroughs for architects, developers and interior studios. Pune, India · Remote worldwide.",
+    "Photoreal exteriors, interiors and walkthroughs for architects, developers and interior studios. Vadodara, Gujarat · Remote worldwide.",
   icons: { icon: "/assets/logo-sage.png" },
 };
 

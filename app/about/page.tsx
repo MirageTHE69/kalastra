@@ -8,7 +8,7 @@ import Contact from "@/components/Contact";
 export const metadata: Metadata = {
   title: "About — Kalastra Studio",
   description:
-    "Kalastra Studio is an architectural and interior visualisation studio in Pune, India, creating photoreal renders and walkthroughs for architects, designers and developers.",
+    "Kalastra Studio is an architectural and interior visualisation studio in Vadodara, Gujarat, creating photoreal renders and walkthroughs for architects, designers and developers.",
 };
 
 export default function AboutPage() {
